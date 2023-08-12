@@ -23,6 +23,8 @@ if os.path.getsize("data.txt") == 0:
                    Protein:{PROTEIN_GOAL} grams, 
                    Fat: {FAT_GOAL} grams, 
                    Carbs: {CARBS_GOAL} grams\n""")
+        
+
 
 today = []
 colors = ['coral', 'peachpuff', 'skyblue']
@@ -36,6 +38,28 @@ class Food:
     protein: int
     fat: int
     carbs: int
+
+
+with open("data.txt", "r") as file:
+    lines = file.readlines()
+    if not lines:
+        print("data.txt is empty.")
+    else:
+        for line in lines:
+            if "Meal:" in line: # check if the line contains meal information
+                meal_info = line.strip().split(", ")
+                name = meal_info[0].split(": ")[1]
+                calories_str = meal_info[1].split(": ")[1]
+                calories = int(calories_str.split(" ")[0])
+                proteins_str = meal_info[2].split(": ")[1]
+                proteins = int(proteins_str.split(" ")[0])
+                fats_str = meal_info[3].split(": ")[1]
+                fats = int(fats_str.split(" ")[0])
+                carbs_str = meal_info[4].split(": ")[1]
+                carbs = int(carbs_str.split(" ")[0])
+                food = Food(name, calories, proteins, fats, carbs)
+                today.append(food)
+
 
     
 done = False
